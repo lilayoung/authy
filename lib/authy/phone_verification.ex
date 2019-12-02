@@ -52,12 +52,17 @@ defmodule Authy.PhoneVerification do
   def check(params = %{phone_number: _, verification_code: _}) do
     params
     |> set_defaults
+    |> IO.inspect
     |> Map.take([:phone_number, :country_code, :verification_code])
     |> get_check
+    |> IO.inspect
   end
 
   defp get_check(params = %{phone_number: _, country_code: _, verification_code: _}) do
-    @http_client.get!(@base_url <> "/check", [], params: params) |> parse_response
+    @http_client.get!(@base_url <> "/check", [], params: params) 
+    |> IO.inspect
+    |> parse_response
+    |> IO.inspect
   end
 
   defp set_defaults(params) do
