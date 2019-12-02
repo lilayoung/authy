@@ -32,6 +32,7 @@ defmodule Authy.PhoneVerification do
   def start(params = %{phone_number: _}) do
     params
     |> set_defaults
+    |> IO.inspect
     |> Map.take([:via, :phone_number, :country_code, :locale, :custom_message])
     |> post_start
     |> IO.inspect
@@ -39,7 +40,7 @@ defmodule Authy.PhoneVerification do
 
   defp post_start(params = %{via: via, phone_number: _, country_code: _})
        when via in [:sms, "sms", :call, "call"] do
-    @http_client.post!(@base_url <> "/start", params) |> parse_response |> IO.inspect
+    @http_client.post!(@base_url <> "/start", params)    |> IO.inspect |> parse_response |> IO.inspect
   end
 
   @doc """
